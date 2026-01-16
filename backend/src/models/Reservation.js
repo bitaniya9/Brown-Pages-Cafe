@@ -12,6 +12,10 @@ const reservationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
+    resourceType: {
+      type: String,
+      required: true,
+    },
     date: {
       type: Date,
       required: true,
@@ -20,6 +24,16 @@ const reservationSchema = new mongoose.Schema(
       type: String,
       enum: ["morning", "afternoon", "evening"],
       required: true,
+    },
+    guests: {
+      type: Number,
+      min: 1,
+      default: 1,
+    },
+    status: {
+      type: String,
+      enum: ["active", "cancelled", "completed"],
+      default: "active",
     },
   },
   { timestamps: true }

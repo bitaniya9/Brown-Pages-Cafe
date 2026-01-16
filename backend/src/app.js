@@ -15,6 +15,9 @@ app.get("/", (req, res) => {
   res.send("Backend running with cors");
 });
 
+app.use("/api/users", require("./routes/User.routes.js"));
+app.use("/api/reservations", require("./routes/reservation.routes.js"));
+
 connectDB();
 
 const port = process.env.PORT;
