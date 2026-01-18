@@ -4,8 +4,30 @@ const EventRegistration = require("../models/EventRegistration");
 //only Admin can create and delete the cafes events
 const createEvent = async (request, response) => {
   try {
-    const event = await Event.create(request.body);
+    const imageUrl = request.file
+      ? `/uploads/events/${request.file.filename}`
+      : null;
+    const event = await Event.create({ ...request.body, image: imageUrl });
     response.status(201).json(event);
+  } catch (error) {
+    response.status(400).json({ message: error.message });
+  }
+};
+
+const updateEvent = async (request, response) => {
+  try {
+    const updateData = { ...request.body };
+
+    if (request.file) {
+      updateData.image = `/uploads/events/${request.file.filename}`;
+    }
+    const event = await Event.findByIdAndUpdate(request.params.id, updateData, {
+      new: true,
+    });
+    if (!event) {
+      return response.status(404).json({ message: "Event not found" });
+    }
+    response.status(200).json({ message: "Event updated", event });
   } catch (error) {
     response.status(400).json({ message: error.message });
   }
@@ -203,6 +225,7 @@ const getMyEvents = async (request, response) => {
 
 module.exports = {
   createEvent,
+  updateEvent,
   getAllEvents,
   getEventById,
   deleteEvent,

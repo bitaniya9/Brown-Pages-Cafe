@@ -1,5 +1,72 @@
-/* OUR Pages start here */
-body {
+OUR Pages start here body {
   background-color: blanchedalmond;
   color: brown;
+}
+/* For event card component */
+/* The Parent: This makes the two children sit side-by-side */
+.event-card {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  border: 1px solid #eee;
+}
+
+/* LEFT SIDE: Main Card */
+.main-event-card {
+  flex: 2; /* Takes up 2/3 of the width */
+  min-width: 300px;
+  border-right: 1px solid #eee;
+}
+.card-image-box {
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+.card-image-fit {
+  max-width: 100%;
+  justify-content: flex-start;
+  object-fit: contain;
+}
+
+/* RIGHT SIDE: Sidebar */
+.event-sidebar {
+  flex: 1; /* Takes up 1/3 of the width */
+  min-width: 250px;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for the details box */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-image-fit {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  object-fit: contain;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+/* Small sidebar title to match your reference image */
+.sidebar-title {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #333;
+  border-bottom: 2px solid #556b2f;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.menu-images {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* The magic property for backend images */
 }

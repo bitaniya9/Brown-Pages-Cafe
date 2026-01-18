@@ -3,6 +3,7 @@ const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware.js");
 const adminMiddleware = require("../middlewares/adminMiddleware.js");
 const Event = require("../models/Event.js");
+const uploadEventImage = require("../middlewares/upload.Event.js");
 const {
   createEvent,
   getAllEvents,
@@ -12,6 +13,7 @@ const {
   getRemainingSpots,
   cancelEventRegistration,
   getMyEvents,
+  updateEvent,
 } = require("../controllers/event.controller.js");
 
 router.get("/", getAllEvents); //can be used for Events page
@@ -23,18 +25,20 @@ router.post("/:id/register", authMiddleware, registerForEvent);
 
 router.delete("/:id/register", authMiddleware, cancelEventRegistration);
 
-router.post("/", authMiddleware, adminMiddleware("admin"), createEvent);
-router.delete("/:id", authMiddleware, adminMiddleware("admin"), deleteEvent);
+router.post(
+  "/",
+  authMiddleware,
+  adminMiddleware("admin"),
+  uploadEventImage.single("image"),
+  createEvent,
+);
 router.patch(
   "/:id",
   authMiddleware,
   adminMiddleware("admin"),
-  async (req, res) => {
-    const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.json(event);
-  }
+  uploadEventImage.single("image"),
+  updateEvent,
 );
+router.delete("/:id", authMiddleware, adminMiddleware("admin"), deleteEvent);
 
 module.exports = router;
