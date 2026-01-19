@@ -16,27 +16,27 @@ const seedEvents = async () => {
         This event is perfect for poetry lovers of all ages who enjoy hearing creative expressions come to life. 
         There will be opportunities to interact with the performers, share your own verses, and explore the rich literary culture in a cozy and welcoming environment.`,
         capacity: 30,
-        image: "/uploads/events/Gemini_Generated_Image_se687xse687xse68.png",
+        image: "/uploads/events/poetry_night.png",
       },
       {
-        title: "Harry Potter: Goblet of fire",
+        title: "Book Club: The Alchemist",
         type: "book_club",
-        date: new Date("2026-03-05"),
-        description: `Dive into the magical world of Harry Potter in our engaging book club session focused on 'Goblet of Fire'. 
-        Discuss the plot, characters, and the hidden themes of friendship, courage, and perseverance. 
-        This interactive session encourages lively conversation and is a great way to connect with fellow fans of the series while gaining new insights and perspectives on J.K. Rowling's beloved books.`,
-        capacity: 12,
-        image: "/uploads/events/khalis-rafif-XVUVPhcFHu8-unsplash.jpg",
+        date: new Date("2026-02-25"),
+        description: `Dive deep into the magical world of Paulo Coelho's masterpiece, The Alchemist. 
+        We will discuss the themes of destiny, dreams, and the journey of self-discovery. 
+        Whether you've read it a dozen times or this is your first journey with Santiago, your perspective is welcome!`,
+        capacity: 15,
+        image: "/uploads/events/home_hero.jpg",
       },
       {
-        title: "Author Signing- Jerry Spineli",
-        type: "signing",
-        date: new Date("2026-03-10"),
-        description: `Meet the acclaimed author Jerry Spineli and get your favorite books signed! 
-        This special event offers an intimate opportunity to hear Spineli share insights into his writing process, inspirations, and upcoming works. 
-        Whether you're a lifelong fan or discovering his stories for the first time, you'll enjoy engaging conversations, photo opportunities, and the chance to connect with a vibrant literary community.`,
-        capacity: 50,
-        image: "/uploads/events/elena-kloppenburg-JP-EwLOTDBk-unsplash.jpg",
+        title: "Coffee Tasting Workshop",
+        type: "flavor_exploration",
+        date: new Date("2026-03-05"),
+        description: `Experience the subtle nuances of different coffee beans from around the world. 
+        Our head barista, Maya Hailu, will guide you through the tasting process, explaining the origins, roasting techniques, and flavor profiles. 
+        Perfect for coffee enthusiasts looking to refine their palate.`,
+        capacity: 10,
+        image: "/uploads/events/coffee_tasting.png",
       },
     ];
     await Event.insertMany(events);
