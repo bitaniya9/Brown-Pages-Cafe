@@ -1,6 +1,5 @@
 //EventCard component
 const BASE_URL = import.meta.env.VITE_API_URL;
-console.log("My Backend URL is:", BASE_URL);
 
 export const getUpcomingEvents = async () => {
   const response = await fetch(`${BASE_URL}/events?time=upcoming`);
@@ -20,4 +19,16 @@ export const registerForEvent = async (id, token) => {
     throw new Error(error.message || "Failed to register");
   }
   return response.json();
+};
+
+export const cancelEventRegistration = async (id, token) => {
+  const response = await fetch(`${BASE_URL}/events/${id}/register`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+  return data;
 };

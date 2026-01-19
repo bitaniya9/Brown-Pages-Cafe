@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUpcomingEvents, registerForEvent } from "../api.js";
 import { toast } from "react-toastify";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import EventsCard from "../components/EventsCard";
-
 const Events = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getUpcomingEvents()
@@ -32,15 +31,15 @@ const Events = () => {
   };
   return (
     <main className="events">
-      <Navbar />
-      <h1>Events</h1>
-      <p>
+      {/* <Navbar /> */}
+      <h1 className="event-heading">Events</h1>
+      <p className="event-heading paragraph">
         Join us for fun, engaging and educational events at Brown Pages Cafe!
         <br></br>Explore our upcoming events and register to save your spots.
         <br></br>See you there!{" "}
       </p>
       <div>
-        <h1>Upcoming Events</h1>
+        <h2 className="event-heading-h2">Upcoming Events</h2>
         <div>
           {events.map((event) => (
             <EventsCard

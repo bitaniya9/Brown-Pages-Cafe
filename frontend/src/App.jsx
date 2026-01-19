@@ -11,7 +11,7 @@ import Menu from "./pages/Menu";
 // import ReadingSpaces from "./pages/ReadingSpaces";
 // import Contacts from "./pages/Contacts";
 import Events from "./pages/Events";
-import EventDetails from "./pages/EventDetails";
+import Signup from "./pages/Signup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,7 +24,8 @@ function App() {
         {/* <Route path="readingSpaces" element={<ReadingSpaces />} />
         <Route path="contacts" element={<Contacts />} /> */}
         <Route path="events" element={<Events />} />
-        <Route path="events/:id" element={<EventDetails />} />
+        {/* <Route path="events/:id" element={<EventDetails />} /> */}
+        <Route path="signup" element={<Signup />} />
       </Route>,
     ),
   );
