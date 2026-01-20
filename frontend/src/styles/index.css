@@ -67,6 +67,66 @@ body {
   margin-top: 10px;
 }
 
+/* Footer Container */
+.footer {
+  background: rgb(77, 39, 16);
+  color: blanchedalmond;
+  padding: 30px 22px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+}
+
+/* Footer Brand/Logo Link */
+.footer a.brand-link {
+  color: blanchedalmond;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* Footer Navigation */
+.footer nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer nav a {
+  color: blanchedalmond;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer nav a:hover {
+  color: rgb(238, 128, 23);
+}
+
+/* Copyright Text */
+.footer small {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  color: blanchedalmond;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .footer nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
 .break {
   display: block;
   margin-bottom: 5%;
@@ -209,7 +269,7 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .staff-intro .chef-intro+.barista-intro {
+  .staff-intro .chef-intro + .barista-intro {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -299,7 +359,6 @@ button:hover {
   margin-bottom: 10px;
 }
 
-
 /* Sidebar Styling */
 .event-sidebar {
   background-color: rgb(67, 28, 5);
@@ -387,7 +446,83 @@ button:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Nav bar */
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 65px;
+  padding: 0 16px;
+  background: rgb(42, 21, 9);
+  position: relative;
+}
+
+/* Logo */
+.navbar .logo {
+  color: blanchedalmond;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Toggle button */
+.navbar .nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: blanchedalmond;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Desktop nav */
+.navbar .nav-links {
+  display: flex;
+  gap: 18px;
+}
+
+.navbar .nav-links a {
+  color: blanchedalmond;
+  text-decoration: none;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-family: "Lato", sans-serif;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+  color: rgb(238, 128, 23);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar .nav-toggle {
+    display: block;
+  }
+
+  .navbar .nav-links {
+    display: none;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    background: rgb(42, 21, 9);
+    padding: 20px 0;
+    z-index: 1000;
+  }
+
+  .navbar .nav-links.open {
+    display: flex;
+  }
+
+  .navbar .nav-links a {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 235, 205, 0.1);
+  }
+}
 
 /* Register Modal Components */
 .modal-overlay {
@@ -577,7 +712,6 @@ button:hover {
 .register-btn-large:hover {
   background-color: orange;
 }
-
 
 /* Auth Pages (Login & Signup) */
 .auth-container {
