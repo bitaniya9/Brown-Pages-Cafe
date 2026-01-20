@@ -1,12 +1,15 @@
-// src/layouts/RootLayout.jsx
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
-const RootLayout = () => {
+function RootLayout() {
   return (
-    <div className="app-layout">
+    <>
+      <Navbar />
       <Outlet />
-    </div>
+      <Footer />
+    </>
   );
-};
+}
 
 export default RootLayout;

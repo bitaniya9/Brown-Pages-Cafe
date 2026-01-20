@@ -1,14 +1,35 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
-  return (
-    <nav className="navbar">
-      {/* Your navbar links like <Link to="/">Home</Link> */}
-      {/* <h1>Brown Pages Cafe</h1> */}
-    </nav>
-  );
-};
+function Navbar() {
+  const [open, setOpen] = useState(false);
 
-// THIS IS THE LINE YOU ARE MISSING:
+  return (
+    <header className="navbar">
+      <Link to="/" className="logo">
+        Brown Pages Cafe
+      </Link>
+
+      <button className="nav-toggle" onClick={() => setOpen(!open)}>
+        ☰
+      </button>
+
+      <nav className={`nav-links ${open ? "open" : ""}`}>
+        <Link to="/" onClick={() => setOpen(false)}>
+          Home
+        </Link>
+        <Link to="/menu" onClick={() => setOpen(false)}>
+          Menu
+        </Link>
+        <Link to="/events" onClick={() => setOpen(false)}>
+          Events
+        </Link>
+        <Link to="/contacts" onClick={() => setOpen(false)}>
+          Contacts
+        </Link>
+      </nav>
+    </header>
+  );
+}
+
 export default Navbar;
