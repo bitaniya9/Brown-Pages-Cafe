@@ -9,7 +9,7 @@ import {
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 
 const EventCard = ({ event, onRegister }) => {
-  const BACKEND_ROOT = "http://localhost:3000";
+  const BACKEND_ROOT = import.meta.env.VITE_API_URL1;
   const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",

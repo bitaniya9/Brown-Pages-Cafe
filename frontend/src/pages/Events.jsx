@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUpcomingEvents, registerForEvent } from "../api.js";
 import { toast } from "react-toastify";
-// import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar";
 import EventsCard from "../components/EventsCard";
 const Events = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Events = () => {
   };
   return (
     <main className="events">
-      {/* <Navbar /> */}
+      <Navbar />
       <h1 className="event-heading">Events</h1>
       <p className="event-heading paragraph">
         Join us for fun, engaging and educational events at Brown Pages Cafe!

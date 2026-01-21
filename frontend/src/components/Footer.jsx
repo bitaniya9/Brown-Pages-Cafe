@@ -1,14 +1,22 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+function Footer() {
   return (
-    <nav className="navbar">
-      {/* Your navbar links like <Link to="/">Home</Link> */}
-      <h1>Brown Pages Cafe</h1>
-    </nav>
-  );
-};
+    <footer className="footer">
+      <Link to="/" className="footer-logo">
+        Brown Pages Cafe
+      </Link>
 
-// THIS IS THE LINE YOU ARE MISSING:
+      <nav className="footer-links">
+        <Link to="/">Home</Link>
+        <Link to="/menu">Menu</Link>
+        <Link to="/events">Events</Link>
+        <Link to="/contacts">Contacts</Link>
+      </nav>
+
+      <small>© {new Date().getFullYear()} Brown Pages Cafe</small>
+    </footer>
+  );
+}
+
 export default Footer;

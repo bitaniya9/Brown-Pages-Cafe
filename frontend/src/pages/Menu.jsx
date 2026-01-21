@@ -1,12 +1,14 @@
 import React from "react";
-
+import Navbar from "../components/Navbar";
+// import Footer from "../components/Footer";
 const Menu = () => {
   return (
     <div>
-      <h1>Welcome to Brown Pages Cafe</h1>
+      <Navbar />
+      <h1>Menu</h1>
+      {/* <Footer /> */}
     </div>
   );
 };
 
-// THIS IS THE LINE YOU ARE LIKELY MISSING:
 export default Menu;

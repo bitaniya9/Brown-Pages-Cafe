@@ -8,12 +8,13 @@ import {
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
-// import ReadingSpaces from "./pages/ReadingSpaces";
+import Spaces from "./pages/Spaces";
 // import Contacts from "./pages/Contacts";
 import Events from "./pages/Events";
-import EventDetails from "./pages/EventDetails";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import BookTable from "./components/BookTable";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,12 +24,10 @@ function App() {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="menu" element={<Menu />} />
-        {/* <Route path="readingSpaces" element={<ReadingSpaces />} />
-        <Route path="contacts" element={<Contacts />} /> */}
+        <Route path="spaces" element={<Spaces />} />
         <Route path="events" element={<Events />} />
-        <Route path="events/:id" element={<EventDetails />} />
-        <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
       </Route>,
     ),
   );
