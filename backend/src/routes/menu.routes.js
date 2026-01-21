@@ -11,6 +11,6 @@ const adminMiddleware = require("../middlewares/adminMiddleware.js");
 
 router.post("/", authMiddleware, adminMiddleware, createMenuItem);
 
-router.post("/", getMenuItems);
+router.get("/", getMenuItems);
 
 module.exports = router;

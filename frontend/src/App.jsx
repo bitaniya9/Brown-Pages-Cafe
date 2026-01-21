@@ -9,11 +9,11 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Spaces from "./pages/Spaces";
-// import Contacts from "./pages/Contacts";
 import Events from "./pages/Events";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import BookTable from "./components/BookTable";
+import AdminPage from "./pages/AdminPage";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,6 +28,7 @@ function App() {
         <Route path="events" element={<Events />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="admin" element={<AdminPage />} />
       </Route>,
     ),
   );

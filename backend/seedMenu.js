@@ -69,6 +69,12 @@ const seedMenu = async () => {
         image: "/uploads/menu/orange_juice.jpg",
       },
       {
+        name: "Avocado Juice",
+        price: 3.0,
+        category: "juice",
+        image: "/uploads/menu/avocado_juice.jpg",
+      },
+      {
         name: "Samosa",
         price: 2.0,
         category: "specials",

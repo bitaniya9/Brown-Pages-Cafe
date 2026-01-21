@@ -41,13 +41,15 @@ const createReservation = async (req, res) => {
   }
 };
 
-// GET MY RESERVATIONS
-const getMyReservation = async (req, res) => {
+// GET All RESERVATIONS
+const getAllReservations = async (req, res) => {
   try {
+    // Fetch all reservations, optionally populate user info and resource info
     const reservations = await Reservation.find({
-      userId: req.user.id,
       status: { $ne: "cancelled" },
-    });
+    })
+      .populate("userId", "name email") // optional: get user name/email
+      .populate("resourceId"); // optional: get resource info (table, menu item, etc.)
 
     res.json(reservations);
   } catch (error) {
@@ -85,6 +87,6 @@ const cancelReservation = async (req, res) => {
 
 module.exports = {
   createReservation,
-  getMyReservation,
+  getAllReservations,
   cancelReservation,
 };
