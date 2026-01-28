@@ -1,40 +1,12 @@
-// import React from "react";
-
-// const Home = () => {
-//   return (
-//     <div>
-//       <h1>Welcome to Brown Pages Cafe</h1>
-//     </div>
-//   );
-// };
-
-// // THIS IS THE LINE YOU ARE LIKELY MISSING:
-// export default Home;
-
-// import React, { useState, useEffect } from "react";
 import React from "react";
 import Navbar from "../components/Navbar";
 import FeaturesCarousel from "../components/Feature.slider";
+import Footer from "../components/Footer";
 
 function Home() {
-  // const handleJoinEvent = () => {
-  //   alert("This would take you to events page!");
-  //   console.log("Join event clicked");
-  // };
-
-  // const handleReserveSpot = () => {
-  //   alert("Reservation feature coming soon!");
-  //   console.log("Reserve spot clicked");
-  // };
-
-  // const handleExploreMenu = () => {
-  //   alert("Menu page coming soon!");
-  //   console.log("Explore menu clicked");
-  // };
-
   return (
     <div className="home-page">
-      {/* <Navbar /> */}
+      <Navbar />
       <section id="hero-section">
         <img
           className="hero-img"
@@ -50,7 +22,7 @@ function Home() {
           <h1>Sip. Read. Relax.</h1>
           <p>Your cozy space for great coffee and quiet reading.</p>
           <div className="hero-interactive">
-            <a href="#menu" className="hero-btn">
+            <a href="/menu" className="hero-btn">
               Explore Menu
             </a>
             {/* <button className="hero-btn">Join Next Event</button> */}
@@ -133,6 +105,7 @@ function Home() {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 }

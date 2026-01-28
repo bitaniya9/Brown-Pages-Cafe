@@ -1,8 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+  const isLoggedIn = !!localStorage.getItem("token");
 
   return (
     <header className="navbar">
@@ -24,12 +32,17 @@ function Navbar() {
         <Link to="/events" onClick={() => setOpen(false)}>
           Events
         </Link>
-        <Link to="/contacts" onClick={() => setOpen(false)}>
-          Contacts
+        <Link to="/spaces" onClick={() => setOpen(false)}>
+          Spaces
         </Link>
+
+        {isLoggedIn ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <button onClick={() => navigate("/login")}>Login</button>
+        )}
       </nav>
     </header>
   );
 }
-
 export default Navbar;

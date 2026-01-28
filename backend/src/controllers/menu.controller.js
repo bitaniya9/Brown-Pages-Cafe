@@ -1,4 +1,4 @@
-const MenuItem = require("../models/MenuItem");
+const MenuItem = require("../models/MenuItem.js");
 const createMenuItem = async (request, response) => {
   try {
     const menu = await MenuItem.create(request.body);
@@ -11,7 +11,7 @@ const createMenuItem = async (request, response) => {
 };
 const getMenuItems = async (request, response) => {
   try {
-    const { category, available } = request.body;
+    const { category, available } = request.query;
     const filter = {};
     if (category) {
       filter.category = category;
@@ -19,12 +19,13 @@ const getMenuItems = async (request, response) => {
     if (available !== undefined) {
       filter.available = available === "true";
     }
-    const menuItems = (await MenuItem.find(filter)).sort({
+    const menuItems = await MenuItem.find(filter).sort({
       category: 1,
       name: 1,
     });
-    response.json(menuItems);
+    response.status(200).json(menuItems);
   } catch (error) {
+    console.error("GET MENU ERROR:", error);
     response.status(500).json({ message: error.message });
   }
 };

@@ -87,7 +87,6 @@ const getAllEvents = async (request, response) => {
   }
 };
 
-//get Single events by Id so that when a user clicks view details
 const getEventById = async (request, response) => {
   try {
     const event = await Event.findById(request.params.id);
@@ -169,21 +168,30 @@ const getRemainingSpots = async (request, response) => {
 };
 const cancelEventRegistration = async (request, response) => {
   try {
+    const event = await Event.findById(request.params.id);
+    if (!event) {
+      return response.status(404).json({ message: "Event not found" });
+    }
+
+    // Check event date (this is correct)
+    if (event.date < new Date()) {
+      return response
+        .status(400)
+        .json({ message: "Cannot cancel past events" });
+    }
+
     const deleted = await EventRegistration.findOneAndDelete({
       userId: request.user.id,
       eventId: request.params.id,
     });
+
     if (!deleted) {
       return response
         .status(404)
         .json({ message: "Not registered for this event" });
-    } else if (deleted.date < new Date()) {
-      return response
-        .status(400)
-        .json({ message: "Cannot cancel past events" });
-    } else {
-      response.json({ message: "RSVP cancelled successfully" });
     }
+
+    response.json({ message: "RSVP cancelled successfully" });
   } catch (error) {
     response.status(500).json({ message: error.message });
   }

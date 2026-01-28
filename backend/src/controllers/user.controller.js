@@ -56,7 +56,7 @@ const login = async (request, response) => {
     process.env.JWT_SECRET,
     {
       expiresIn: "1d",
-    }
+    },
   );
   response.json({ token });
 };
