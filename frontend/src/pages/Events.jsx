@@ -31,7 +31,6 @@ const Events = () => {
   };
   return (
     <main className="events">
-      <Navbar />
       <h1 className="event-heading">Events</h1>
       <p className="event-heading paragraph">
         Join us for fun, engaging and educational events at Brown Pages Cafe!

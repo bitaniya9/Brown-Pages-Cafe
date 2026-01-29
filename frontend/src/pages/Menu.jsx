@@ -31,7 +31,6 @@ const Menu = () => {
   }, [activeCategory]);
   return (
     <div className="menu">
-      <Navbar />
       <section className="menu-page">
         <h1 className="event-heading">Our Menu</h1>
         <p className="event-heading paragraph"></p>

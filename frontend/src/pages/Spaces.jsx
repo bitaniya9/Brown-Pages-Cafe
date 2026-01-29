@@ -5,7 +5,7 @@ const Spaces = () => {
   return (
     <main>
       {/* ================= READING SPACES ================= */}
-      <Navbar />
+
       <section className="perfect-spot">
         <h2>Reading Spaces</h2>
         <p className="p-perfect-spot">Quiet areas for focus and relaxation</p>

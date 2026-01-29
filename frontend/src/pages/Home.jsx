@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 function Home() {
   return (
     <div className="home-page">
-      <Navbar />
       <section id="hero-section">
         <img
           className="hero-img"
@@ -105,7 +104,6 @@ function Home() {
           </div>
         </section>
       </div>
-      <Footer />
     </div>
   );
 }
