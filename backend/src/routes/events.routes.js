@@ -2,12 +2,12 @@ const Event = require("../models/Event");
 const EventRegistration = require("../models/EventRegistration");
 const jwt = require("jsonwebtoken");
 const formidable = require("formidable");
-const path = require("path"); // This is the module
+const path = require("path"); // This is the module to build folder paths
 const fs = require("fs");
 
-const sendJSON = (res, statusCode, data) => {
-  res.writeHead(statusCode, { "Content-Type": "application/json" });
-  res.end(JSON.stringify(data));
+const sendJSON = (response, statusCode, data) => {
+  response.writeHead(statusCode, { "Content-Type": "application/json" });
+  response.end(JSON.stringify(data));
 };
 
 const verifyAuth = (request) => {
@@ -24,21 +24,24 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
   const method = request.method;
   const user = verifyAuth(request);
 
-  // --- 1. ADMIN CREATE (POST /api/events) ---
+  // ADMIN CREATE EVENTS ---
   if (pathName === "/api/events" && method === "POST") {
     if (!user || user.role !== "admin")
       return sendJSON(response, 403, { message: "Admin only" });
 
+    //formiddable set up
     const form = new formidable.IncomingForm();
     form.uploadDir = path.join(__dirname, "../uploads/events");
     form.keepExtensions = true;
 
+    //create the uploads folder if it doesn't exist
     if (!fs.existsSync(form.uploadDir))
       fs.mkdirSync(form.uploadDir, { recursive: true });
 
-    form.parse(request, async (err, fields, files) => {
-      if (err) return sendJSON(response, 500, { message: "Upload Error" });
+    form.parse(request, async (error, fields, files) => {
+      if (error) return sendJSON(response, 500, { message: "Upload Error" });
       try {
+        // Formidable ALWAYS stores fields and files as arrays.
         const imageUrl = files.image
           ? `/uploads/events/${files.image[0].newFilename}`
           : null;
@@ -61,7 +64,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
   if (pathName === "/api/events" && method === "GET") {
     // Fixed 'path' to 'pathName'
     try {
-      const { type, time, page = 1, limit = 6 } = query;
+      const { type, time } = query;
       const now = new Date();
       const mongoQuery = {};
 
@@ -69,11 +72,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
       if (time === "upcoming") mongoQuery.date = { $gte: now };
       if (time === "past") mongoQuery.date = { $lt: now };
 
-      const skip = (parseInt(page) - 1) * parseInt(limit);
-      const events = await Event.find(mongoQuery)
-        .sort({ date: 1 })
-        .skip(skip)
-        .limit(parseInt(limit));
+      const events = await Event.find(mongoQuery).sort({ date: 1 });
 
       let registeredEventIds = [];
       if (user) {
@@ -89,59 +88,25 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
         isRegistered: registeredEventIds.includes(event._id.toString()),
       }));
 
-      const total = await Event.countDocuments(mongoQuery);
       return sendJSON(response, 200, {
         events: enrichedEvents,
-        pagination: {
-          total,
-          page: Number(page),
-          pages: Math.ceil(total / limit),
-        },
       });
     } catch (error) {
       return sendJSON(response, 500, { message: error.message });
     }
   }
 
-  // --- 3. MY EVENTS (GET /api/events/user/my-events) ---
-  if (pathName === "/api/events/user/my-events" && method === "GET") {
-    // Fixed 'path' to 'pathName'
-    if (!user) return sendJSON(response, 401, { message: "Unauthorized" });
-    try {
-      const now = new Date();
-      const registrations = await EventRegistration.find({
-        userId: user.id,
-      }).populate("eventId");
-      const upcomingEvents = [],
-        pastEvents = [];
-
-      registrations.forEach((reg) => {
-        if (!reg.eventId) return;
-        const event = reg.eventId;
-        const data = {
-          _id: event._id,
-          title: event.title,
-          date: event.date,
-          type: event.type,
-        };
-        new Date(event.date) >= now
-          ? upcomingEvents.push(data)
-          : pastEvents.push(data);
-      });
-      return sendJSON(response, 200, { upcomingEvents, pastEvents });
-    } catch (error) {
-      return sendJSON(response, 500, { message: error.message });
-    }
-  }
-
-  // --- 4. DYNAMIC ID ROUTES ---
+  // ID ROUTES
+  //To get remainig spots and register
   const idMatch = pathName.match(
     /^\/api\/events\/([a-zA-Z0-9]+)(?:\/(remaining-spots|register))?$/,
   ); // Fixed 'path' to 'pathName'
+  // /api/events/:id/remaining-spots
+  // //api/events/:id/register
 
   if (idMatch) {
-    const eventId = idMatch[1];
-    const subRoute = idMatch[2];
+    const eventId = idMatch[1]; //to get id
+    const subRoute = idMatch[2]; //to get the subroute register/remaing spot
 
     if (subRoute === "remaining-spots" && method === "GET") {
       const event = await Event.findById(eventId);
@@ -173,7 +138,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
     }
 
     if (subRoute === "register" && method === "DELETE") {
-      if (!user) return sendJSON(response, 401, { message: "Unauthorized" });
+      if (!user) return sendJSON(response, 401, { message: "Unauthorized" }); //not logged in
       const deleted = await EventRegistration.findOneAndDelete({
         userId: user.id,
         eventId,
@@ -183,29 +148,14 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
         : sendJSON(response, 404, { message: "Not found" });
     }
 
-    if (!subRoute && method === "GET") {
-      const event = await Event.findById(eventId);
-      if (!event)
-        return sendJSON(response, 404, { message: "Event not found" });
-      let isRegistered = false;
-      if (user) {
-        const reg = await EventRegistration.findOne({
-          userId: user.id,
-          eventId,
-        });
-        isRegistered = !!reg;
-      }
-      return sendJSON(response, 200, { ...event.toObject(), isRegistered });
-    }
-
-    // PATCH /api/events/:id (Updated to handle Multipart for images)
+    // Updating events
     if (!subRoute && method === "PATCH") {
       if (!user || user.role !== "admin")
         return sendJSON(response, 403, { message: "Admin only" });
 
       const form = new formidable.IncomingForm();
-      form.parse(request, async (err, fields, files) => {
-        if (err) return sendJSON(response, 500, { message: "Update Error" });
+      form.parse(request, async (error, fields, files) => {
+        if (error) return sendJSON(response, 500, { message: "Update Error" });
         try {
           const updateData = {};
           for (let key in fields) {
@@ -227,6 +177,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
       return;
     }
 
+    //Deleting events
     if (!subRoute && method === "DELETE") {
       if (!user || user.role !== "admin")
         return sendJSON(response, 403, { message: "Admin only" });

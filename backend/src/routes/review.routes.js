@@ -78,45 +78,6 @@ const handleReviewRoutes = async (request, response, body, path, query) => {
       return sendJSON(response, 500, { message: error.message });
     }
   }
-
-  // Regex for /api/reviews/:id (Matches PUT and DELETE)
-  const idMatch = path.match(/^\/api\/reviews\/([a-zA-Z0-9]+)$/);
-
-  if (idMatch) {
-    const reviewId = idMatch[1];
-
-    // PUT /api/reviews/:id
-    if (method === "PUT") {
-      try {
-        const review = await Review.findOneAndUpdate(
-          { _id: reviewId, userId: request.user.id },
-          body,
-          { new: true },
-        );
-        if (!review)
-          return sendJSON(response, 404, { message: "Review not found" });
-        return sendJSON(response, 200, review);
-      } catch (error) {
-        return sendJSON(response, 400, { message: error.message });
-      }
-    }
-
-    // DELETE /api/reviews/:id
-    if (method === "DELETE") {
-      try {
-        const review = await Review.findOneAndDelete({
-          _id: reviewId,
-          userId: request.user.id,
-        });
-        if (!review)
-          return sendJSON(response, 404, { message: "Review not found" });
-        return sendJSON(response, 200, { message: "Review deleted" });
-      } catch (error) {
-        return sendJSON(response, 500, { message: error.message });
-      }
-    }
-  }
-
   // Fallback
   sendJSON(response, 404, { message: "Review route not found" });
 };

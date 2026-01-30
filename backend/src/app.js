@@ -9,6 +9,7 @@ const handleUserRoutes = require("./routes/User.routes.js");
 const handleReservationRoutes = require("./routes/reservation.routes.js");
 const handleReviewRoutes = require("./routes/review.routes.js");
 const handleEventRoutes = require("./routes/events.routes.js");
+const handleMenuRoutes = require("./routes/menu.routes.js");
 
 connectDB();
 
@@ -98,7 +99,7 @@ const server = http.createServer(async (request, response) => {
     } else if (pathname.startsWith("/api/reviews")) {
       await handleReviewRoutes(request, response, body, pathname, query);
     } else if (pathname.startsWith("/api/menu")) {
-      response.end("Menu logic goes here");
+      await handleMenuRoutes(request, response, body, pathname, query);
     } else {
       response.writeHead(404, { "Content-Type": "application/json" });
       response.end(JSON.stringify({ message: "Route not found" }));

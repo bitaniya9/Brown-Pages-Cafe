@@ -1,28 +1,14 @@
-// const express = require("express");
-// const router = express.Router();
-// const authMiddleware = require("../middlewares/authMiddleware.js");
-// const adminMiddleware = require("../middlewares/adminMiddleware.js");
-// const {
-//   createReservation,
-//   getAllReservations,
-//   cancelReservation,
-// } = require("../controllers/reservation.controller.js");
-
-// router.post("/", authMiddleware, createReservation);
-// router.get("/", authMiddleware, adminMiddleware, getAllReservations);
-// router.patch("/:id/cancel", authMiddleware, cancelReservation);
-// module.exports = router;
-
 const Reservation = require("../models/Reservation.js");
 const jwt = require("jsonwebtoken");
 
+///To get create, update and find reservation
 //function to help send JSON responses
 const sendJSON = (response, statusCode, data) => {
   response.writeHead(statusCode, { "Content-Type": "application/json" });
   response.end(JSON.stringify(data));
 };
 
-//auth
+//auth, it will check whether user is logged in or out
 const verifyAuth = (request) => {
   const token = request.headers["authorization"]?.split(" ")[1];
   if (!token) {

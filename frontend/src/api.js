@@ -1,4 +1,3 @@
-//EventCard component
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 //Sign up page
@@ -74,22 +73,6 @@ export const cancelEventRegistration = async (id, token) => {
   return data;
 };
 
-export const getMyEvents = async (token) => {
-  const response = await fetch(`${BASE_URL}/events/user/my-events`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch registered events");
-  }
-
-  return data.events; // array of event IDs or events
-};
-
 // Reservation functions
 export const createReservation = async (token, reservationData) => {
   const response = await fetch(`${BASE_URL}/reservations`, {
@@ -137,6 +120,7 @@ export const getMenuItems = async ({ category, available } = {}) => {
 
   return response.json();
 };
+//Create Menu items
 
 //Events Admin Only
 
@@ -156,7 +140,7 @@ export const createEvent = async (eventData) => {
     }
   });
 
-  const res = await fetch(`${BASE_URL}/api/events`, {
+  const res = await fetch(`${BASE_URL}/events`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`, // include token
@@ -241,6 +225,50 @@ export const getAllReservations = async () => {
     throw new Error(err.message || "Failed to fetch reservations");
   }
   return res.json();
+};
+//Review
+
+// --- Review Functions ---
+
+export const createReview = async (token, reviewData) => {
+  const response = await fetch(`${BASE_URL}/reviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(reviewData),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to create review");
+  }
+  return data;
+};
+
+/**
+ * Get all reviews (Admin Only)
+ * @param {number} page - Current page
+ * @param {number} limit - Items per page
+ */
+export const getAllReviewsAdmin = async (page = 1, limit = 10) => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(
+    `${BASE_URL}/api/reviews/admin?page=${page}&limit=${limit}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch reviews");
+  }
+  return data;
 };
 
 //users Admin Only

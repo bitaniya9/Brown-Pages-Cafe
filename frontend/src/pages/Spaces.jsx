@@ -1,11 +1,15 @@
 import React from "react";
 import BookTable from "../components/BookTable";
 import Navbar from "../components/Navbar";
+import ReviewSection from "../components/ReviewSection"; // We'll create this next
+
 const Spaces = () => {
+  // Get token from storage to pass down for authentication
+  const token = localStorage.getItem("token");
+
   return (
     <main>
       {/* ================= READING SPACES ================= */}
-
       <section className="perfect-spot">
         <h2>Reading Spaces</h2>
         <p className="p-perfect-spot">Quiet areas for focus and relaxation</p>
@@ -19,12 +23,11 @@ const Spaces = () => {
                   import.meta.url,
                 ).href
               }
-              alt="Window seat with natural light"
+              alt="Window seat"
             />
             <h3>Window Seat</h3>
             <p>Natural light and calm views.</p>
           </div>
-
           <div className="spot-card-2">
             <img
               src={
@@ -33,12 +36,11 @@ const Spaces = () => {
                   import.meta.url,
                 ).href
               }
-              alt="Cozy reading corner"
+              alt="Cozy corner"
             />
             <h3>Cozy Corner</h3>
             <p>Private and quiet.</p>
           </div>
-
           <div className="spot-card-3">
             <img
               src={
@@ -47,14 +49,13 @@ const Spaces = () => {
                   import.meta.url,
                 ).href
               }
-              alt="Group table for studying"
+              alt="Group table"
             />
             <h3>Group Table</h3>
             <p>Study and collaboration.</p>
           </div>
         </div>
       </section>
-
       {/* ================= EATING AREAS ================= */}
       <section className="perfect-spot">
         <h2>Eating Areas</h2>
@@ -66,35 +67,41 @@ const Spaces = () => {
           <div className="spot-card-1">
             <img
               src={new URL("../assets/diningArea.jpg", import.meta.url).href}
-              alt="Spacious indoor dining hall"
+              alt="Dining hall"
             />
             <h3>Dining Hall</h3>
             <p>Spacious indoor seating.</p>
           </div>
-
           <div className="spot-card-2">
             <img
               src={new URL("../assets/WindowDining.jpg", import.meta.url).href}
-              alt="Window dining with city views"
+              alt="Window dining"
             />
             <h3>Window Dining</h3>
             <p>Great views while you eat.</p>
           </div>
-
           <div className="spot-card-3">
             <img
               src={new URL("../assets/lounge-table.jpg", import.meta.url).href}
-              alt="Relaxed lounge dining tables"
+              alt="Lounge tables"
             />
             <h3>Lounge Tables</h3>
             <p>Relaxed & social.</p>
           </div>
         </div>
+
         <div className="reservation-top">
           <h2>Make a Reservation.</h2>
         </div>
 
         <BookTable />
+      </section>
+      {/* ================= REVIEWS SECTION ================= */}
+      <section
+        className="review-display-section"
+        style={{ paddingBottom: "50px" }}
+      >
+        <ReviewSection token={token} />
       </section>
     </main>
   );
