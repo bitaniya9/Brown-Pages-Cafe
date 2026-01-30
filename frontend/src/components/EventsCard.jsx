@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 
-const EventCard = ({ event, onRegister }) => {
+const EventCard = ({ event, onRegister, onCancel }) => {
   const BACKEND_ROOT = import.meta.env.VITE_API_URL1;
   const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
     month: "long",
@@ -39,6 +39,12 @@ const EventCard = ({ event, onRegister }) => {
             <div className="card-actions">
               <button className="rsvp-btn" onClick={() => onRegister?.(event)}>
                 Register
+              </button>
+              <button
+                className="rsvp-btn cancel"
+                onClick={() => onCancel(event._id)}
+              >
+                Cancel Registration
               </button>
             </div>
           </div>

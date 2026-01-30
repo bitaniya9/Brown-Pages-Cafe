@@ -96,7 +96,7 @@ export const createReservation = async (token, reservationData) => {
 
 export const cancelReservation = async (token, id) => {
   const response = await fetch(`${BASE_URL}/reservations/${id}/cancel`, {
-    method: "PATCH",
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },
