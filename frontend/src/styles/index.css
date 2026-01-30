@@ -112,6 +112,69 @@ body {
   color: blanchedalmond;
 }
 
+.footer-container {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-logo {
+  color: blanchedalmond;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.footer-tagline {
+  margin-top: 6px;
+  opacity: 0.95;
+  font-size: 0.95rem;
+}
+
+.social {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.instagram-link {
+  color: blanchedalmond;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instagram-link svg {
+  color: #e4405f;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.instagram-link:hover {
+  color: rgb(238, 128, 23);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+}
+
 /* Responsive Layout */
 @media (max-width: 768px) {
   .footer {
@@ -480,11 +543,22 @@ button:hover {
 
 /* Logo */
 .navbar .logo {
-  color: blanchedalmond;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   text-decoration: none;
+  color: blanchedalmond;
   font-family: "Playfair Display", serif;
   font-weight: 700;
   font-size: 1.5rem;
+}
+.logo-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: blanchedalmond;
+  padding: 2px;
 }
 
 /* Toggle button */
@@ -1166,63 +1240,127 @@ input:focus {
   }
 }
 
-/* Footer Container */
+/* Main Footer Wrapper */
 .footer {
-  background: rgb(77, 39, 16);
+  background: rgb(77, 39, 16); /* Brown */
   color: blanchedalmond;
-  padding: 30px 22px;
-  margin-top: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 50px 20px 20px 20px;
+  margin-top: 50px;
   font-family: "Lato", sans-serif;
 }
 
-/* Footer Brand/Logo Link */
-.footer a.brand-link {
-  color: blanchedalmond;
-  text-decoration: none;
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  font-size: 1.3rem;
-}
-
-/* Footer Navigation */
-.footer nav {
+/* Container for the 3 horizontal sections */
+.footer-container {
   display: flex;
-  gap: 20px;
+  justify-content: space-between; /* left / center / right */
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 60px; /* spacing between sections */
+  flex-wrap: wrap;
+  padding: 0 20px;
 }
 
-.footer nav a {
+/* Section alignment */
+.footer-brand {
+  text-align: left;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-contact {
+  text-align: right;
+}
+
+/* Headings */
+.footer-section h3 {
+  color: rgb(238, 128, 23); /* Accent Orange */
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  margin: 0 0 15px 0;
+}
+
+/* Brand Styling */
+.footer-logo {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: blanchedalmond;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Logo underline accent */
+.footer-logo::after {
+  content: "";
+  display: block;
+  width: 45px;
+  height: 3px;
+  background: rgb(238, 128, 23);
+  margin-top: 8px;
+}
+
+/* Tagline */
+.footer-tagline {
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  max-width: 220px;
+  line-height: 1.4;
+}
+
+/* Horizontal Navigation Links */
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  justify-content: center;
+}
+
+.footer-links a {
   color: blanchedalmond;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
   transition: color 0.3s ease;
 }
 
-.footer nav a:hover {
+.footer-links a:hover {
   color: rgb(238, 128, 23);
 }
 
-/* Copyright Text */
-.footer small {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  color: blanchedalmond;
+/* Contact Details */
+.footer-section p {
+  margin: 6px 0;
+  font-size: 0.9rem;
 }
 
-/* Responsive Layout */
+/* Bottom Bar */
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 235, 205, 0.1);
+  text-align: center;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .footer {
+  .footer-container {
     flex-direction: column;
-    gap: 20px;
     text-align: center;
-    padding: 40px 20px;
+    gap: 35px;
   }
 
-  .footer nav {
-    flex-direction: column;
-    gap: 10px;
+  .footer-brand,
+  .footer-nav,
+  .footer-contact {
+    text-align: center;
   }
 }
 

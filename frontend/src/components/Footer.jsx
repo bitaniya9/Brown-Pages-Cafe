@@ -1,20 +1,48 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 function Footer() {
   return (
     <footer className="footer">
-      <Link to="/" className="footer-logo">
-        Brown Pages Cafe
-      </Link>
+      <div className="footer-container">
+        {/* Section 1: Brand */}
+        <div className="footer-section">
+          <Link to="/" className="footer-logo">
+            Brown Pages Cafe
+          </Link>
+          <p className="footer-tagline">Sip, Read, Relax.</p>
+        </div>
 
-      <nav className="footer-links">
-        <Link to="/">Home</Link>
-        <Link to="/menu">Menu</Link>
-        <Link to="/events">Events</Link>
-        <Link to="/contacts">Contacts</Link>
-      </nav>
+        <div className="footer-section">
+          <h3>Contact Us</h3>
+          <p>
+            Email:{" "}
+            <a href="mailto:brownpages@gmail.com">brownpages@gmail.com</a>
+          </p>
+          <p>
+            Phone: <a href="tel:+251922222222">(+251) 922 22 22 22</a>
+          </p>
+          <p>
+            Location: <Link to="/spaces">Bole, behind SKB Tower</Link>
+          </p>
+          <p className="social">
+            Follow us: {/* mock Instagram link */}
+            <a
+              href="https://instagram.com/brownpagescafe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="instagram-link"
+            >
+              <FontAwesomeIcon icon={faInstagram} /> @brownpagescafe
+            </a>
+          </p>
+        </div>
+      </div>
 
-      <small>© {new Date().getFullYear()} Brown Pages Cafe</small>
+      <div className="footer-bottom">
+        <small>© {new Date().getFullYear()} Brown Pages Cafe</small>
+      </div>
     </footer>
   );
 }

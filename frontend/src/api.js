@@ -40,6 +40,20 @@ export const getUpcomingEvents = async () => {
   return response.json();
 };
 
+// Admin: get all events
+export const getAllEvents = async () => {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BASE_URL}/events`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to fetch events");
+  }
+  const data = await res.json();
+  return data.events || data;
+};
+
 export const registerForEvent = async (id, token) => {
   const response = await fetch(`${BASE_URL}/events/${id}/register`, {
     method: "POST",
@@ -223,6 +237,21 @@ export const getAllReservations = async () => {
   if (!res.ok) {
     const err = await res.json();
     throw new Error(err.message || "Failed to fetch reservations");
+  }
+  return res.json();
+};
+// Admin: get all users
+export const getAllUsers = async () => {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BASE_URL}/users`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to fetch users");
   }
   return res.json();
 };

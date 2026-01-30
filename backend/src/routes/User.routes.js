@@ -57,7 +57,29 @@ const handleUserRoutes = async (request, response, body, path) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" },
     );
-    return sendJSON(response, 200, { token });
+    return sendJSON(response, 200, {
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  }
+  // Admin: get all users
+  if (path === "/api/users" && request.method === "GET") {
+    const token = request.headers["authorization"]?.split(" ")[1];
+    if (!token) return sendJSON(response, 401, { message: "Unauthorized" });
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      if (decoded.role !== "admin")
+        return sendJSON(response, 403, { message: "Access denied" });
+      const users = await User.find({}, { password: 0 });
+      return sendJSON(response, 200, users);
+    } catch (err) {
+      return sendJSON(response, 401, { message: "Invalid token" });
+    }
   }
   sendJSON(response, 404, { message: "User route not found" });
 };

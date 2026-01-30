@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import logo from "../assets/coffee-book-cafe-library-tea-cup-shop-logo-vector-43812409.jpg";
 function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Navbar() {
   return (
     <header className="navbar">
       <Link to="/" className="logo">
+        <img src={logo} alt="Brown Pages Logo" className="logo-img" />
         Brown Pages Cafe
       </Link>
 

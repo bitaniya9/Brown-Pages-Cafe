@@ -1,0 +1,93 @@
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: rgb(238, 227, 207);
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: rgb(42, 21, 9);
+  color: blanchedalmond;
+  padding: 30px 20px;
+}
+
+.admin-sidebar h2 {
+  font-family: "Playfair Display", serif;
+  border-bottom: 1px solid rgba(255, 235, 205, 0.2);
+  padding-bottom: 15px;
+}
+
+.admin-sidebar li {
+  padding: 12px;
+  cursor: pointer;
+  list-style: none;
+  transition: 0.3s;
+}
+
+.admin-sidebar li.active {
+  color: orange;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  border-bottom: 2px solid rgb(42, 21, 9);
+  padding-bottom: 10px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table th {
+  background-color: blanchedalmond;
+  color: rgb(42, 21, 9);
+  padding: 15px;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.hero-btn {
+  background-color: rgb(42, 21, 9);
+  color: orange;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background: #f1c40f;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.btn-delete {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 5px;
+}
