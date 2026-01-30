@@ -22,19 +22,19 @@ export default function FeaturesCarousel() {
       desc: "Quiet place to read.",
     },
     {
-      title: "Brown Pages Latte",
-      img: "../assets/tabitha-turner-3n3mPoGko8g-unsplash.jpg",
-      desc: "Made with freshly brewed coffee.",
+      title: "Sandwich Bar",
+      img: "../assets/sandwich.jpg",
+      desc: "Fresh and delicious sandwiches.",
     },
     {
-      title: "Brown Pages Latte",
-      img: "../assets/tabitha-turner-3n3mPoGko8g-unsplash.jpg",
-      desc: "Made with freshly brewed coffee.",
+      title: "Cafe Ambiance",
+      img: "../assets/cafe.jpg",
+      desc: "Warm and inviting space perfect for relaxing.", 
     },
     {
-      title: "Brown Pages Latte",
-      img: "../assets/tabitha-turner-3n3mPoGko8g-unsplash.jpg",
-      desc: "Made with freshly brewed coffee.",
+      title: "Pastry Selection",
+      img: "../assets/download (3).jpg",
+      desc: "Daily fresh pastries, cakes, and desserts.",
     },
   ];
 

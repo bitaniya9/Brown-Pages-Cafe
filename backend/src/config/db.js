@@ -1,15 +1,16 @@
-//connecting with mongo
-
 const mongoose = require("mongoose");
-require("dotenv").config();
 
 const connectDB = async () => {
   try {
-    console.log("connection url", process.env.MONGO_URI);
-    const connect = await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+    });
     console.log("Mongodb connected");
   } catch (error) {
-    console.log("Error when connectiong to mongodb");
+    console.error("MongoDB connection error:");
+    console.error(error);
+    process.exit(1);
   }
 };
 
