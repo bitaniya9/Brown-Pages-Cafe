@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createReview, getAllReviewsAdmin } from "../api"; // Adjust path
+import { toast } from "react-toastify";
 
 const ReviewSection = ({ token }) => {
   const [reviews, setReviews] = useState([]);
@@ -26,8 +27,7 @@ const ReviewSection = ({ token }) => {
     setError("");
     try {
       await createReview(token, { rating, comment });
-      alert("Thank you for your review!");
-      window.location.reload(); // Refresh to show the new review
+      return toast.info("Thank you for your review!");
     } catch (err) {
       setError(err.message); // This catches "You already sent the review"
     }

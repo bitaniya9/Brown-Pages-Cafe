@@ -1,10 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
 export default function FeaturesCarousel() {
+  const navigate = useNavigate();
   const features = [
     {
       title: "Brown Pages Latte",
@@ -29,7 +31,7 @@ export default function FeaturesCarousel() {
     {
       title: "Cafe Ambiance",
       img: "../assets/cafe.jpg",
-      desc: "Warm and inviting space perfect for relaxing.", 
+      desc: "Warm and inviting space perfect for relaxing.",
     },
     {
       title: "Pastry Selection",
@@ -54,7 +56,12 @@ export default function FeaturesCarousel() {
               <h3>{f.title}</h3>
               <p>{f.desc}</p>
               {f.title === "Reading Nooks" && (
-                <button className="reserve-btn">Reserve a Spot</button>
+                <button
+                  className="reserve-btn"
+                  onClick={() => navigate("/spaces")}
+                >
+                  Reserve a Spot
+                </button>
               )}
             </div>
           </SwiperSlide>

@@ -24,43 +24,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
   const method = request.method;
   const user = verifyAuth(request);
 
-  // ADMIN CREATE EVENTS ---
-  if (pathName === "/api/events" && method === "POST") {
-    if (!user || user.role !== "admin")
-      return sendJSON(response, 403, { message: "Admin only" });
-
-    //formiddable set up
-    const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(__dirname, "../uploads/events");
-    form.keepExtensions = true;
-
-    //create the uploads folder if it doesn't exist
-    if (!fs.existsSync(form.uploadDir))
-      fs.mkdirSync(form.uploadDir, { recursive: true });
-
-    form.parse(request, async (error, fields, files) => {
-      if (error) return sendJSON(response, 500, { message: "Upload Error" });
-      try {
-        // Formidable ALWAYS stores fields and files as arrays.
-        const imageUrl = files.image
-          ? `/uploads/events/${files.image[0].newFilename}`
-          : null;
-        const event = await Event.create({
-          title: fields.title[0],
-          description: fields.description[0],
-          date: fields.date[0],
-          capacity: fields.capacity[0],
-          image: imageUrl,
-        });
-        return sendJSON(response, 201, event);
-      } catch (error) {
-        return sendJSON(response, 400, { message: error.message });
-      }
-    });
-    return;
-  }
-
-  // --- 2. GET ALL EVENTS (GET /api/events) ---
+  // GET ALL EVENTS ---
   if (pathName === "/api/events" && method === "GET") {
     // Fixed 'path' to 'pathName'
     try {
@@ -97,7 +61,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
   }
 
   // ID ROUTES
-  //To get remainig spots and register
+  //To get register
   const idMatch = pathName.match(
     /^\/api\/events\/([a-zA-Z0-9]+)(?:\/(remaining-spots|register))?$/,
   ); // Fixed 'path' to 'pathName'
@@ -154,6 +118,8 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
         return sendJSON(response, 403, { message: "Admin only" });
 
       const form = new formidable.IncomingForm();
+      form.uploadDir = path.join(__dirname, "../uploads/events");
+      form.keepExtensions = true;
       form.parse(request, async (error, fields, files) => {
         if (error) return sendJSON(response, 500, { message: "Update Error" });
         try {
@@ -161,7 +127,7 @@ const handleEventRoutes = async (request, response, body, pathName, query) => {
           for (let key in fields) {
             updateData[key] = fields[key][0];
           }
-          if (files.image)
+          if (files.image && files.image[0])
             updateData.image = `/uploads/events/${files.image[0].newFilename}`;
 
           const event = await Event.findByIdAndUpdate(eventId, updateData, {

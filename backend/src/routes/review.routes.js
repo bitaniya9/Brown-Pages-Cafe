@@ -54,25 +54,12 @@ const handleReviewRoutes = async (request, response, body, path, query) => {
     }
 
     try {
-      // Manual pagination parsing from the query object
-      const page = parseInt(query.page) || 1;
-      const limit = parseInt(query.limit) || 10;
-      const skip = (page - 1) * limit;
-
       const reviews = await Review.find()
         .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit);
-
-      const total = await Review.countDocuments();
+        .populate("userId", "name email");
 
       return sendJSON(response, 200, {
         reviews,
-        pagination: {
-          total,
-          page,
-          pages: Math.ceil(total / limit),
-        },
       });
     } catch (error) {
       return sendJSON(response, 500, { message: error.message });

@@ -70,9 +70,7 @@ const handleReservationRoutes = async (request, response, body, path) => {
     if (request.user.role !== "admin") {
       return sendJSON(response, 403, { message: "Access denied" });
     }
-    const reservations = await Reservation.find({
-      status: { $ne: "cancelled" },
-    })
+    const reservations = await Reservation.find({})
       .populate("userId", "name email")
       .populate("resourceId");
     return sendJSON(response, 200, reservations);

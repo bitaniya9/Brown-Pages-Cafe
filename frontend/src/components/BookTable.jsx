@@ -32,7 +32,7 @@ const TABLES = {
 };
 
 const BookTable = () => {
-  const [areaType, setAreaType] = useState("reading");
+  const [areaType, setAreaType] = useState("eating");
   const [table, setTable] = useState("");
   const [date, setDate] = useState("");
   const [timeSlot, setTimeSlot] = useState("");

@@ -65,16 +65,6 @@ export const registerForEvent = async (id, token) => {
   }
   return response.json();
 };
-export const getRemainingSpots = async (eventId) => {
-  const response = await fetch(`${BASE_URL}/events/${eventId}/remaining`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch remaining spots");
-  }
-
-  return response.json(); // { remaining }
-};
-
 export const cancelEventRegistration = async (id, token) => {
   const response = await fetch(`${BASE_URL}/events/${id}/register`, {
     method: "DELETE",
@@ -138,43 +128,6 @@ export const getMenuItems = async ({ category, available } = {}) => {
 
 //Events Admin Only
 
-/**
- * Create a new event (Admin)
- * @param {Object} eventData - { title, date, type, capacity, image: File }
- */
-
-export const createEvent = async (eventData) => {
-  const token = localStorage.getItem("token");
-
-  // Create FormData for image upload
-  const formData = new FormData();
-  Object.keys(eventData).forEach((key) => {
-    if (eventData[key] !== undefined) {
-      formData.append(key, eventData[key]);
-    }
-  });
-
-  const res = await fetch(`${BASE_URL}/events`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`, // include token
-      // NOTE: Do NOT set Content-Type, browser sets it automatically for FormData
-    },
-    body: formData,
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || "Failed to create event");
-  }
-  return res.json();
-};
-
-/**
- * Update an existing event (Admin)
- * @param {string} id - Event ID
- * @param {Object} updateData - { title?, date?, type?, capacity?, image?: File }
- */
 export const updateEvent = async (id, updateData) => {
   const token = localStorage.getItem("token");
 
@@ -185,8 +138,9 @@ export const updateEvent = async (id, updateData) => {
     }
   });
 
-  const res = await fetch(`${BASE_URL}/api/events/${id}`, {
-    method: "PUT",
+  console.log("Updating event at:", `${BASE_URL}/events/${id}`);
+  const res = await fetch(`${BASE_URL}/events/${id}`, {
+    method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -201,14 +155,10 @@ export const updateEvent = async (id, updateData) => {
   return res.json();
 };
 
-/**
- * Delete an event (Admin)
- * @param {string} id - The ID of the event to delete
- */
 export const deleteEvent = async (id) => {
   const token = localStorage.getItem("token"); // get admin JWT
 
-  const res = await fetch(`${BASE_URL}/api/events/${id}`, {
+  const res = await fetch(`${BASE_URL}/events/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`, // send token
@@ -226,7 +176,7 @@ export const deleteEvent = async (id) => {
 //Reservation admin only
 export const getAllReservations = async () => {
   const token = localStorage.getItem("token"); // your stored JWT
-  const res = await fetch(`${BASE_URL}/api/reservations`, {
+  const res = await fetch(`${BASE_URL}/reservations`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -276,22 +226,14 @@ export const createReview = async (token, reviewData) => {
   return data;
 };
 
-/**
- * Get all reviews (Admin Only)
- * @param {number} page - Current page
- * @param {number} limit - Items per page
- */
-export const getAllReviewsAdmin = async (page = 1, limit = 10) => {
+export const getAllReviewsAdmin = async () => {
   const token = localStorage.getItem("token");
-  const response = await fetch(
-    `${BASE_URL}/api/reviews/admin?page=${page}&limit=${limit}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  const response = await fetch(`${BASE_URL}/reviews/admin`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  );
+  });
 
   const data = await response.json();
   if (!response.ok) {
