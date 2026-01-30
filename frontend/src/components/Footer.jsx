@@ -14,9 +14,6 @@ function Footer() {
           <p className="footer-tagline">Sip, Read, Relax.</p>
         </div>
 
-        {/* Section 2: (removed navigation) */}
-
-        {/* Section 3: Contacts */}
         <div className="footer-section">
           <h3>Contact Us</h3>
           <p>
