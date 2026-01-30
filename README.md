@@ -12,7 +12,7 @@ A full-stack web application for managing a cafe, featuring real-time reservatio
 
     Reservations: Conflict-checked booking system for tables and slots.
 
-    Review System: Paginated customer feedback and ratings.
+    Review System: customer feedback and ratings.
 
 ## Tech Stack
 
