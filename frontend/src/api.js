@@ -93,14 +93,14 @@ export const createReservation = async (token, reservationData) => {
   }
   return data;
 };
-
 export const cancelReservation = async (token, id) => {
   const response = await fetch(`${BASE_URL}/reservations/${id}/cancel`, {
-    method: "DELETE",
+    method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+
   const data = await response.json();
   if (!response.ok) {
     throw new Error(data.message || "Failed to cancel reservation");

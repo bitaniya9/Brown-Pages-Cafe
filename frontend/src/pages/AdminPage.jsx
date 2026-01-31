@@ -20,8 +20,8 @@ const AdminPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Modal State - Simplified for Editing Only
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); //edit modal
+  const [currentEvent, setCurrentEvent] = useState(null); //currently
 
   const tableHeaders = {
     events: ["Title", "Date", "Type", "Capacity", "Actions"],
@@ -50,8 +50,8 @@ const AdminPage = () => {
         ? result
         : result.reviews || result.data || [];
       setData(finalData);
-    } catch (err) {
-      console.error("Fetch error:", err);
+    } catch (error) {
+      console.error("Fetch error:", error);
       setData([]);
     } finally {
       setLoading(false);
@@ -71,7 +71,7 @@ const AdminPage = () => {
         setData((prev) => prev.filter((item) => (item._id || item.id) !== id));
         toast.info("Event deleted successfully!");
       } catch (err) {
-        alert(err.message);
+        toast.info(err.message);
       }
     }
   };

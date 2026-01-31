@@ -1,25 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { createReview, getAllReviewsAdmin } from "../api"; // Adjust path
+import React, { useState } from "react";
+import { createReview } from "../api"; // Adjust path
 import { toast } from "react-toastify";
 
 const ReviewSection = ({ token }) => {
-  const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
-
-  // 1. Fetch reviews on load
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const data = await getAllReviewsAdmin(1, 10);
-        setReviews(data.reviews);
-      } catch (error) {
-        console.error("Failed to load reviews", error.message);
-      }
-    };
-    fetchReviews();
-  }, []);
 
   // 2. Handle submission
   const handleSubmit = async (e) => {
@@ -58,7 +44,7 @@ const ReviewSection = ({ token }) => {
             onChange={(e) => setComment(e.target.value)}
             required
           />
-          <button type="submit" class="submit-btn">
+          <button type="submit" className="submit-btn">
             Post Review
           </button>
         </form>
